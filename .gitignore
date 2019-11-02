@@ -1,5 +1,5 @@
 git.bundle
-expr-parser
+cmd/expr-parser/expr-parser
 
 # Binaries for programs and plugins
 *.exe

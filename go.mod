@@ -1,4 +1,4 @@
-module github.com/qaisjp/expr-parser
+module github.com/qaisjp/basic-cron-parser
 
 go 1.13
 

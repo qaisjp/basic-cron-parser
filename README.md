@@ -18,7 +18,7 @@ Unsupported features:
 - words in place of Month or Day of week
 - question marks
 
-In practice, you might prefer to use [robfig's cron library](https://github.com/robfig/cron).
+This repository is an experiment. In practice, you should use [robfig's cron library](https://github.com/robfig/cron).
 
 ## Installation
 

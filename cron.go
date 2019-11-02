@@ -77,25 +77,25 @@ func parse(str string, min int, max int) ([]string, error) {
 		parts := strings.Split(str, "-")
 		if len(parts) != 2 {
 			// todo: report errors
-			return nil, errors.Errorf("unexpected input %#s", str)
+			return nil, errors.Errorf("unexpected input %#v", str)
 		}
 
 		a, err := strconv.Atoi(parts[0])
 		if err != nil {
-			return nil, errors.Errorf("unexpected input %#s", parts[0])
+			return nil, errors.Errorf("unexpected input %#v", parts[0])
 		} else if a < min {
 			return nil, errors.Errorf("number (%d) must be greater than %d", a, min)
 		}
 
 		b, err := strconv.Atoi(parts[1])
 		if err != nil {
-			return nil, errors.Errorf("unexpected input %#s", parts[1])
+			return nil, errors.Errorf("unexpected input %#v", parts[1])
 		} else if b > max {
 			return nil, errors.Errorf("number (%d) must be less than %d", b, max)
 		}
 
 		if a > b {
-			return nil, errors.Errorf("unexpected input %#s", str)
+			return nil, errors.Errorf("unexpected input %#v", str)
 		}
 
 		results := []string{}

@@ -41,3 +41,18 @@ func TestParseMaxRange(t *testing.T) {
 	// range
 	assert.Equal(t, []string{"0", "1", "2", "3", "4", "5"}, parseTest(t, "0-5", 0, 5)) // day of week
 }
+
+func TestNewExpression(t *testing.T) {
+	expected := &CronExpression{
+		Minutes:    []string{"0", "15", "30", "45"},
+		Hours:      []string{"0"},
+		DayOfMonth: []string{"1", "15"},
+		Months:     []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"},
+		DayOfWeek:  []string{"1", "2", "3", "4", "5"},
+		Command:    "/usr/bin/find arg1 arg2",
+	}
+
+	result, err := NewCronExpression("*/15 0 1,15 * 1-5 /usr/bin/find arg1 arg2")
+	assert.NoError(t, err)
+	assert.Equal(t, expected, result)
+}

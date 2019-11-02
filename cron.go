@@ -2,7 +2,6 @@ package cron
 
 import (
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
 
@@ -111,7 +110,7 @@ func parse(str string, min int, max int) ([]string, error) {
 
 // NewCronExpression creates a CronExpression given a string
 func NewCronExpression(str string) (*CronExpression, error) {
-	parts := strings.Fields(os.Args[1])
+	parts := strings.Fields(str)
 	if len(parts) < 6 {
 		return nil, errors.Errorf("expression is too short")
 	}

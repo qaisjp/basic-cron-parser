@@ -14,7 +14,7 @@ Supported features:
 
 Unsupported features:
 - other forms of slashes
-- [special time strings](https://en.wikipedia.org/wiki/Cron#Nonstandard_predefined_scheduling_definitions))
+- [special time strings](https://en.wikipedia.org/wiki/Cron#Nonstandard_predefined_scheduling_definitions)
 - words in place of Month or Day of week
 - question marks
 

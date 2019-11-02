@@ -55,4 +55,59 @@ func TestNewExpression(t *testing.T) {
 	result, err := NewCronExpression("*/15 0 1,15 * 1-5 /usr/bin/find arg1 arg2")
 	assert.NoError(t, err)
 	assert.Equal(t, expected, result)
+
+	expectedStr := `minute		0 15 30 45
+hour		0
+day of month	1 15
+month		1 2 3 4 5 6 7 8 9 10 11 12
+day of week	1 2 3 4 5
+command		/usr/bin/find arg1 arg2`
+	assert.Equal(t, expectedStr, result.String())
+}
+
+func TestBasicExpressionFailure(t *testing.T) {
+	_, err := NewCronExpression("")
+	assert.Error(t, err)
+
+	_, err = NewCronExpression("bla1 bla2 bla3 blah4 blah5 blah6 blah7")
+	assert.Error(t, err)
+}
+
+func TestBasicParseFailure(t *testing.T) {
+	_, err := parse("bla1", 4, 5)
+	assert.Error(t, err)
+
+	_, err = parse("2", 4, 5)
+	assert.Error(t, err)
+
+	_, err = parse("-1", 0, 5)
+	assert.Error(t, err)
+
+	_, err = parse("2,5,7", 4, 5)
+	assert.Error(t, err)
+
+	_, err = parse("2-7", 4, 5)
+	assert.Error(t, err)
+
+	_, err = parse("4-7", 4, 5)
+	assert.Error(t, err)
+
+	_, err = parse("3-2", 1, 7)
+	assert.Error(t, err)
+
+	_, err = parse("3-2-1", 1, 7)
+	assert.Error(t, err)
+
+	_, err = parse("1-F", 1, 7)
+	assert.Error(t, err)
+
+	_, err = parse("M-5", 1, 7)
+	assert.Error(t, err)
+
+	_, err = parse("*/", 1, 7)
+	assert.Error(t, err)
+
+	_, err = parse("*,*", 1, 7)
+	assert.Error(t, err)
+
 }

@@ -1,4 +1,4 @@
-package main
+package cron
 
 const (
 	MinMinutes = 0

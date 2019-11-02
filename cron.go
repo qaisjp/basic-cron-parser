@@ -1,4 +1,4 @@
-package main
+package cron
 
 import (
 	"fmt"
@@ -109,6 +109,7 @@ func parse(str string, min int, max int) ([]string, error) {
 	return nil, errors.Errorf("unexpected input string")
 }
 
+// NewCronExpression creates a CronExpression given a string
 func NewCronExpression(str string) (*CronExpression, error) {
 	parts := strings.Fields(os.Args[1])
 	if len(parts) < 6 {
@@ -138,19 +139,4 @@ func NewCronExpression(str string) (*CronExpression, error) {
 	}
 
 	return &expr, nil
-}
-
-func main() {
-	if len(os.Args) != 2 {
-		fmt.Println(`expr-parser [CRON_EXPRESSION]`)
-		return
-	}
-
-	expr, err := NewCronExpression(os.Args[1])
-	if err != nil {
-		fmt.Printf("%s", err.Error())
-		return
-	}
-
-	fmt.Println(*expr)
 }

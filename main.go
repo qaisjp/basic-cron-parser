@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/hashicorp/go-multierror"
 	"github.com/pkg/errors"
 )
 
@@ -108,22 +109,17 @@ func parse(str string, min int, max int) ([]string, error) {
 	return nil, errors.Errorf("unexpected input string")
 }
 
-func main() {
-	if len(os.Args) != 2 {
-		fmt.Println(`expr-parser [CRON_EXPRESSION]`)
-		return
-	}
-
+func NewCronExpression(str string) (*CronExpression, error) {
 	parts := strings.Fields(os.Args[1])
 	if len(parts) < 6 {
-		fmt.Println("Expression is too short")
-		return
+		return nil, errors.Errorf("expression is too short")
 	}
 
-	errors := []error{}
+	var err error
+
 	try := func(sequence []string, parseError error) []string {
 		if parseError != nil {
-			errors = append(errors, parseError)
+			err = multierror.Append(err, parseError)
 		}
 		return sequence
 	}
@@ -137,13 +133,24 @@ func main() {
 		Command:    strings.Join(parts[5:], " "),
 	}
 
-	if len(errors) > 0 {
-		fmt.Println("Encountered errors:")
-		for _, err := range errors {
-			fmt.Printf("- %s\n", err.Error())
-		}
+	if err != nil {
+		return nil, err
+	}
+
+	return &expr, nil
+}
+
+func main() {
+	if len(os.Args) != 2 {
+		fmt.Println(`expr-parser [CRON_EXPRESSION]`)
 		return
 	}
 
-	fmt.Println(expr)
+	expr, err := NewCronExpression(os.Args[1])
+	if err != nil {
+		fmt.Printf("%s", err.Error())
+		return
+	}
+
+	fmt.Println(*expr)
 }

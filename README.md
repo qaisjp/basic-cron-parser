@@ -1,3 +1,7 @@
+Please don't use this. This was a take-home task for full-time software engineering position at a food delivery company that is headquartered in London, UK. Sounds a bit like deliver a roo.
+
+----
+
 # basic-cron-parser
 
 [![GoDoc](https://godoc.org/github.com/qaisjp/basic-cron-parser?status.svg)](https://godoc.org/github.com/qaisjp/basic-cron-parser)
